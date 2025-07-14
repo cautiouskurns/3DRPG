@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class BasicCollisionSetup : MonoBehaviour
 {
     [Header("Collision Settings")]
@@ -11,11 +12,25 @@ public class BasicCollisionSetup : MonoBehaviour
     public Vector2 villageSize = new Vector2(60, 60);
     public float boundaryHeight = 2f;
     
+    [Header("Editor Tools")]
+    [Space]
+    public bool generateInEditor = false;
+    
     private GameObject collisionParent;
     
     void Start()
     {
-        if (setupOnStart) SetupVillageCollision();
+        if (setupOnStart && Application.isPlaying) SetupVillageCollision();
+    }
+    
+    void Update()
+    {
+        // Editor-time generation
+        if (!Application.isPlaying && generateInEditor)
+        {
+            generateInEditor = false; // Reset the toggle
+            SetupVillageCollision();
+        }
     }
     
     public void SetupVillageCollision()

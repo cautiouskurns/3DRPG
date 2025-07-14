@@ -5,9 +5,30 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Village.unity
+    guid: 275dc16970ef349fca95da1bf4addde1
+  - enabled: 1
+    path: Assets/Scenes/Interiors/Blacksmith_Interior.unity
+    guid: c2dc30bc33ff14d1892da750883d03bf
+  - enabled: 1
+    path: Assets/Scenes/Interiors/Chapel_Interior.unity
+    guid: 8f01a6efbb4954bf284d523309f4443e
+  - enabled: 1
+    path: Assets/Scenes/Interiors/House_Interior.unity
+    guid: 5c18fbcc8a81d49088b2e04a746d1a19
+  - enabled: 1
+    path: Assets/Scenes/Interiors/Inn_Interior.unity
+    guid: b4205263ec3ad41dd9b961a96e091305
+  - enabled: 1
+    path: Assets/Scenes/Interiors/Shop_Interior.unity
+    guid: 8bad329c259a8424582080e9140f09dd
+  - enabled: 1
+    path: Assets/Scenes/Interiors/TownHall_Interior.unity
+    guid: c50efaab086dd4731a9521fefa2eeb58
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

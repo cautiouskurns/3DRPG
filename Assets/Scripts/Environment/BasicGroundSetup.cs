@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class BasicGroundSetup : MonoBehaviour
 {
     [Header("Ground Materials")]
@@ -12,11 +13,25 @@ public class BasicGroundSetup : MonoBehaviour
     public bool setupOnStart = true;
     public bool createMaterialsIfMissing = true;
     
+    [Header("Editor Tools")]
+    [Space]
+    public bool generateInEditor = false;
+    
     private GameObject groundParent;
     
     void Start()
     {
-        if (setupOnStart) SetupVillageGround();
+        if (setupOnStart && Application.isPlaying) SetupVillageGround();
+    }
+    
+    void Update()
+    {
+        // Editor-time generation
+        if (!Application.isPlaying && generateInEditor)
+        {
+            generateInEditor = false; // Reset the toggle
+            SetupVillageGround();
+        }
     }
     
     public void SetupVillageGround()

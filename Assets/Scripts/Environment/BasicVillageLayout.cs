@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class BasicVillageLayout : MonoBehaviour
 {
     [Header("Building Prefabs")]
@@ -37,12 +38,26 @@ public class BasicVillageLayout : MonoBehaviour
     public bool buildOnStart = true;
     public bool useCustomMaterials = false;
     
+    [Header("Editor Tools")]
+    [Space]
+    public bool generateInEditor = false;
+    
     private GameObject villageParent;
     private List<GameObject> placedBuildings = new List<GameObject>();
     
     void Start()
     {
-        if (buildOnStart) BuildVillage();
+        if (buildOnStart && Application.isPlaying) BuildVillage();
+    }
+    
+    void Update()
+    {
+        // Editor-time generation
+        if (!Application.isPlaying && generateInEditor)
+        {
+            generateInEditor = false; // Reset the toggle
+            BuildVillage();
+        }
     }
     
     public void BuildVillage()
@@ -220,8 +235,13 @@ public class BasicVillageLayout : MonoBehaviour
                 newMaterial.SetColor("_Color", color);
             }
             
+            // Adjust UV tiling based on object scale for consistent appearance
+            Vector3 scale = building.transform.localScale;
+            Vector2 tiling = CalculateUVTiling(building, scale);
+            newMaterial.mainTextureScale = tiling;
+            
             renderer.material = newMaterial;
-            Debug.Log($"Applied material to {building.name} using shader: {shader.name}");
+            Debug.Log($"Applied material to {building.name} using shader: {shader.name} with tiling {tiling}");
         }
     }
     
@@ -230,8 +250,24 @@ public class BasicVillageLayout : MonoBehaviour
         Renderer renderer = building.GetComponent<Renderer>();
         if (renderer != null && material != null)
         {
-            renderer.material = material;
-            Debug.Log($"Applied custom material to {building.name}");
+            // Create a new material instance to avoid affecting other objects
+            Material materialInstance = new Material(material);
+            
+            // Adjust UV tiling based on object scale to maintain consistent texture density
+            Vector3 scale = building.transform.localScale;
+            Vector2 tiling = CalculateUVTiling(building, scale);
+            
+            // Apply tiling to main texture
+            materialInstance.mainTextureScale = tiling;
+            
+            // Also apply to normal map if it exists
+            if (materialInstance.HasProperty("_BumpMap"))
+            {
+                materialInstance.SetTextureScale("_BumpMap", tiling);
+            }
+            
+            renderer.material = materialInstance;
+            Debug.Log($"Applied custom material to {building.name} with tiling {tiling}");
         }
     }
     
@@ -263,6 +299,36 @@ public class BasicVillageLayout : MonoBehaviour
                 return new Color(0.4f, 0.2f, 0.1f); // Dark brown
             default:
                 return Color.gray;
+        }
+    }
+    
+    Vector2 CalculateUVTiling(GameObject obj, Vector3 scale)
+    {
+        // Define texture scale factor - lower values = larger texture detail
+        float textureScale = 1.0f;
+        
+        // Different tiling strategies based on object type
+        if (obj.name.Contains("Barrel") || obj.name.Contains("Crate") || obj.name.Contains("Rock"))
+        {
+            // Props: use uniform scaling to maintain square textures
+            float averageScale = (scale.x + scale.y + scale.z) / 3f;
+            return Vector2.one * averageScale * textureScale;
+        }
+        else if (obj.name.Contains("Fence"))
+        {
+            // Fences: tile along length but not height
+            return new Vector2(scale.x * textureScale, textureScale);
+        }
+        else if (obj.name.Contains("Hall") || obj.name.Contains("Shop") || obj.name.Contains("Inn") || 
+                 obj.name.Contains("Blacksmith") || obj.name.Contains("Chapel") || obj.name.Contains("House"))
+        {
+            // Buildings: tile based on horizontal size, moderate vertical tiling
+            return new Vector2(scale.x * textureScale * 0.5f, scale.y * textureScale * 0.3f);
+        }
+        else
+        {
+            // Default: tile based on X and Z (horizontal) scale
+            return new Vector2(scale.x * textureScale, scale.z * textureScale);
         }
     }
     
