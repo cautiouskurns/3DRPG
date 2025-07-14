@@ -1,0 +1,10 @@
+{
+    "asset": "2216da38594ee45928c78d158d178c9e",
+    "fileName": "01980a6f-7faf-79c6-a84f-a6197adca74f_Preview.png",
+    "prompt": "Create a dark, soot-stained wood material for a blacksmith workshop. Use very dark brown/charcoal colors with burn marks and soot stains. The wood should appear heavily weathered from heat and smoke exposure. Include some metallic staining and rough texture. Color: dark brown to charcoal black.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 690434920,
+    "w3CTraceId": "aa64519d42438d86f64c52f0b9b945f8",
+    "refinementMode": "Generation"
+}

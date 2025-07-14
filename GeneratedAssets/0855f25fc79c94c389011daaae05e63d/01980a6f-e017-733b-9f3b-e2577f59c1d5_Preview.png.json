@@ -1,0 +1,10 @@
+{
+    "asset": "0855f25fc79c94c389011daaae05e63d",
+    "fileName": "01980a6f-e017-733b-9f3b-e2577f59c1d5_Preview.png",
+    "prompt": "Create a pristine limestone material for a religious chapel building. Use very light gray/off-white colors with smooth, clean surfaces. The stone should appear well-maintained and sacred, with subtle carved details. Include a slight luminous quality and clean finish. Color: light gray/off-white.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 178963669,
+    "w3CTraceId": "0b66b3f6c84e348162564256c508b646",
+    "refinementMode": "Generation"
+}

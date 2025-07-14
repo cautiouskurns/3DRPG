@@ -1,0 +1,10 @@
+{
+    "asset": "1c82ab9d8a09e46afb85051a513ada91",
+    "fileName": "01980a62-ea3b-754f-b097-58bb09c8f817_Preview.png",
+    "prompt": "Create a realistic grass material for a medieval village ground. The grass should be vibrant green with natural variation, suitable for a fantasy RPG setting. Include subtle dirt patches and worn areas. The material should tile seamlessly and work well in orthographic/isometric camera view. Color: medium green with earthy undertones.",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 615461404,
+    "w3CTraceId": "b96f28857d9fb38d1d409fc5d73d1482",
+    "refinementMode": "Generation"
+}

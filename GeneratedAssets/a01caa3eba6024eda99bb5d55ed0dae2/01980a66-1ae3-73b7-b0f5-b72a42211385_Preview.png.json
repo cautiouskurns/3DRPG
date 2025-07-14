@@ -1,0 +1,10 @@
+{
+    "asset": "a01caa3eba6024eda99bb5d55ed0dae2",
+    "fileName": "01980a66-1ae3-73b7-b0f5-b72a42211385_Preview.png",
+    "prompt": "Create a formal cobblestone material for a village town square. Use refined, uniform stones in light gray color with clean mortar lines. The stones should be well-maintained and polished from foot traffic. Include subtle reflections and a slightly smoother finish than regular stone paths. Color: light gray with subtle blue undertones.\n",
+    "negativePrompt": "\n",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 1627652856,
+    "w3CTraceId": "05f15831b1e70797ba811b555875512f",
+    "refinementMode": "Generation"
+}

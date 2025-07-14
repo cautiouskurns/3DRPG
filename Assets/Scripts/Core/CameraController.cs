@@ -8,8 +8,9 @@ public class CameraController : MonoBehaviour
     public float lookAheadDistance = 2f;
     
     [Header("Isometric Settings")]
-    public Vector3 offset = new Vector3(0, 10, -10);
+    public Vector3 offset = new Vector3(-3, 10, -10);
     public float isometricAngle = 30f;
+    public float sideAngle = 15f;
     
     [Header("Smoothing")]
     public float positionSmoothing = 1.0f;
@@ -89,14 +90,14 @@ public class CameraController : MonoBehaviour
     
     private void SetIsometricView()
     {
-        // Set isometric rotation (looking down at angle)
-        transform.rotation = Quaternion.Euler(isometricAngle, 0, 0);
+        // Set isometric rotation with slight side angle for better building visibility
+        transform.rotation = Quaternion.Euler(isometricAngle, sideAngle, 0);
         
         // Set orthographic camera for true isometric view
         cameraComponent.orthographic = true;
         cameraComponent.orthographicSize = 8f;
         
-        Debug.Log($"CameraController: Set isometric view with {isometricAngle}° angle");
+        Debug.Log($"CameraController: Set isometric view with {isometricAngle}° down angle and {sideAngle}° side angle");
     }
     
     private void UpdateCameraPosition()
@@ -122,8 +123,8 @@ public class CameraController : MonoBehaviour
     
     private void UpdateCameraRotation()
     {
-        // Maintain isometric angle
-        Quaternion targetRotation = Quaternion.Euler(isometricAngle, 0, 0);
+        // Maintain isometric angle with side angle
+        Quaternion targetRotation = Quaternion.Euler(isometricAngle, sideAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothing * Time.deltaTime);
     }
     

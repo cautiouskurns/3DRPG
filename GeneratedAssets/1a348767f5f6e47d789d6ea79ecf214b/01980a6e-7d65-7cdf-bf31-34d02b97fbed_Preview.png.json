@@ -1,0 +1,10 @@
+{
+    "asset": "1a348767f5f6e47d789d6ea79ecf214b",
+    "fileName": "01980a6e-7d65-7cdf-bf31-34d02b97fbed_Preview.png",
+    "prompt": "Create a weathered wood material for a merchant shop building. Use medium brown wood planks with visible grain patterns and age marks. Include some color variation between planks and subtle wear from weather exposure. The wood should look sturdy but lived-in. Color: medium brown with darker grain lines.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 233153249,
+    "w3CTraceId": "968bbfa242678011628f49b170f4c756",
+    "refinementMode": "Generation"
+}

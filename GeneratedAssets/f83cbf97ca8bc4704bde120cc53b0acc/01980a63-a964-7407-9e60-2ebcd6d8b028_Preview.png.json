@@ -1,0 +1,10 @@
+{
+    "asset": "f83cbf97ca8bc4704bde120cc53b0acc",
+    "fileName": "01980a63-a964-7407-9e60-2ebcd6d8b028_Preview.png",
+    "prompt": "Create a medieval cobblestone path material with weathered gray stones. The stones should be irregularly shaped with moss growing between cracks. Include subtle color variation from light to dark gray. The material should look well-traveled and ancient, suitable for connecting village buildings. Make it tileable for long pathways.",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 814412007,
+    "w3CTraceId": "e49ff2e42dec365e58ec639145cacd83",
+    "refinementMode": "Generation"
+}

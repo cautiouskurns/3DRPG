@@ -71,7 +71,7 @@ public static class EventBus
                 }
             }
             
-            Debug.Log($"EventBus: Published {eventType.Name} to {eventHandlers[eventType].Count} subscribers");
+//            Debug.Log($"EventBus: Published {eventType.Name} to {eventHandlers[eventType].Count} subscribers");
         }
     }
     

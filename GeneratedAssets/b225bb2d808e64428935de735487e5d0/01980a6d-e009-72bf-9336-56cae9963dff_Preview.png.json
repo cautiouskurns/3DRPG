@@ -1,0 +1,10 @@
+{
+    "asset": "b225bb2d808e64428935de735487e5d0",
+    "fileName": "01980a6d-e009-72bf-9336-56cae9963dff_Preview.png",
+    "prompt": "Create a prestigious sandstone material for a town hall building. Use warm tan/beige colors with subtle texture variations. The stone should appear well-crafted and official, with clean lines and a slight weathered patina. Include carved details and a semi-matte finish. Color: warm tan/sandy beige.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 2013153817,
+    "w3CTraceId": "b1122068d442caa352f6e32dbfc14c63",
+    "refinementMode": "Generation"
+}

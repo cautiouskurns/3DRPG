@@ -52,22 +52,22 @@ public class MilestoneValidator : MonoBehaviour
     void Update()
     {
         // Manual validation triggers
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             StartCoroutine(RunValidationSequence());
         }
         
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             TestPlayerMovement();
         }
         
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             TestCameraIntegration();
         }
         
-        if (Input.GetKeyDown(KeyCode.F4))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             ShowPerformanceSummary();
         }

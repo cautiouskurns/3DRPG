@@ -1,0 +1,10 @@
+{
+    "asset": "20ffec195e7aa42fb9b8f77b6aaf8956",
+    "fileName": "01980a6e-e472-7012-93d5-e4d863632512_Preview.png",
+    "prompt": "Create a rustic timber material for a cozy inn building. Use light brown wood with warm undertones, showing signs of care and maintenance. Include subtle color variations and a slightly polished finish from regular cleaning. The material should feel welcoming and homey. Color: light brown with golden highlights.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 1828804804,
+    "w3CTraceId": "e92ed6c66df6604b590c4cc04b64f3a6",
+    "refinementMode": "Generation"
+}

@@ -1,0 +1,10 @@
+{
+    "asset": "b65e072eb522b4936b397984683d078b",
+    "fileName": "01980a64-21e8-7afb-8836-0c0380c16c27_Preview.png",
+    "prompt": "Create a packed dirt material for a blacksmith work area. The dirt should be brown with reddish clay undertones, showing signs of heavy use and foot traffic. Include small stones and debris scattered throughout. The surface should appear compacted and slightly rough. Color: medium to dark brown with clay accents.\n",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "customSeed": 1730642081,
+    "w3CTraceId": "e94290d61690bf9f16d7b37ea8cc86d0",
+    "refinementMode": "Generation"
+}
