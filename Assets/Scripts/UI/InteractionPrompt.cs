@@ -1,34 +1,74 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class InteractionPrompt : MonoBehaviour
 {
-    [Header("Prompt Settings")]
-    public Canvas promptCanvas;
-    public Text promptText;
-    public string defaultPromptText = "Press E to enter";
+    public static InteractionPrompt Instance { get; private set; }
     
-    [Header("Visual Settings")]
+    [Header("UI References")]
+    public GameObject promptPanel;
+    public Text promptText;
+    public Image promptBackground;
+    public CanvasGroup promptCanvasGroup;
+    
+    [Header("Animation Settings")]
+    public float fadeInDuration = 0.2f;
+    public float fadeOutDuration = 0.15f;
+    public Vector2 showScale = Vector2.one;
+    public Vector2 hideScale = new Vector2(0.8f, 0.8f);
+    
+    [Header("Positioning")]
+    public bool followPlayer = true;
+    public Vector3 worldOffset = new Vector3(0, 2, 0);
+    public bool useScreenPosition = false;
+    public Vector2 screenPosition = new Vector2(0.5f, 0.8f);
+    
+    [Header("Visual Style")]
+    public Color defaultTextColor = Color.white;
+    public Color highlightTextColor = Color.yellow;
+    public Color backgroundColor = new Color(0, 0, 0, 0.7f);
+    
+    [Header("Legacy Compatibility")]
+    public Canvas promptCanvas;
+    public string defaultPromptText = "Press E to enter";
     public float fadeInSpeed = 5f;
     public float fadeOutSpeed = 10f;
     public bool useScreenSpace = true;
-    public Vector2 screenOffset = new Vector2(0, 100); // Pixels above center
-    
-    [Header("Auto-Creation")]
+    public Vector2 screenOffset = new Vector2(0, 100);
     public bool autoCreateUI = true;
     public Font fallbackFont;
     
-    private bool isVisible = false;
-    private CanvasGroup canvasGroup;
+    private Transform playerTransform;
     private Camera playerCamera;
+    private Coroutine currentAnimation;
+    private bool isVisible = false;
+    private string currentPromptText = "";
+    private CanvasGroup canvasGroup;
     private Vector3 promptOffset = Vector3.zero;
+    
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            InitializePrompt();
+        }
+        else
+        {
+            Debug.LogWarning("InteractionPrompt: Duplicate instance destroyed");
+            Destroy(gameObject);
+        }
+    }
     
     void Start()
     {
-        // Initialize prompt UI
-        SetupPromptUI();
+        SetupReferences();
+        SubscribeToEvents();
+        HidePromptImmediate();
         
-        // Start hidden
+        // Legacy compatibility
+        SetupPromptUI();
         HidePrompt();
         
         Debug.Log("InteractionPrompt: Initialized");
@@ -36,7 +76,13 @@ public class InteractionPrompt : MonoBehaviour
     
     void Update()
     {
-        // Handle fade animations
+        // New system: Update world position following
+        if (isVisible && followPlayer && !useScreenPosition)
+        {
+            UpdateWorldPosition();
+        }
+        
+        // Legacy system: Handle fade animations
         if (canvasGroup != null)
         {
             float targetAlpha = isVisible ? 1f : 0f;
@@ -44,7 +90,7 @@ public class InteractionPrompt : MonoBehaviour
             canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, speed * Time.deltaTime);
         }
         
-        // Update prompt position if using world space
+        // Legacy system: Update prompt position if using world space
         if (!useScreenSpace)
         {
             UpdatePromptPosition();
@@ -226,6 +272,297 @@ public class InteractionPrompt : MonoBehaviour
         CreatePromptBackground(canvasObject);
         
         Debug.Log("InteractionPrompt: Auto-created UI components");
+    }
+    
+    // New interaction system methods
+    void InitializePrompt()
+    {
+        if (promptPanel == null)
+        {
+            promptPanel = gameObject;
+        }
+        
+        if (promptCanvasGroup == null)
+        {
+            promptCanvasGroup = promptPanel.GetComponent<CanvasGroup>();
+            if (promptCanvasGroup == null)
+            {
+                promptCanvasGroup = promptPanel.AddComponent<CanvasGroup>();
+            }
+        }
+    }
+    
+    void SetupReferences()
+    {
+        FindPlayerReferences();
+        FindUIComponents();
+        ApplyDefaultStyling();
+    }
+    
+    void FindPlayerReferences()
+    {
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerTransform = player.transform;
+            }
+            else
+            {
+                PlayerController controller = FindFirstObjectByType<PlayerController>();
+                if (controller != null)
+                {
+                    playerTransform = controller.transform;
+                }
+            }
+        }
+        
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+            if (playerCamera == null)
+            {
+                playerCamera = FindFirstObjectByType<Camera>();
+            }
+        }
+    }
+    
+    void FindUIComponents()
+    {
+        if (promptText == null)
+        {
+            promptText = GetComponentInChildren<Text>();
+        }
+        
+        if (promptBackground == null)
+        {
+            promptBackground = GetComponent<Image>();
+        }
+    }
+    
+    void ApplyDefaultStyling()
+    {
+        if (promptText != null)
+        {
+            promptText.color = defaultTextColor;
+            promptText.text = "";
+        }
+        
+        if (promptBackground != null)
+        {
+            promptBackground.color = backgroundColor;
+        }
+    }
+    
+    void SubscribeToEvents()
+    {
+        EventBus.Subscribe<InteractionPromptEvent>(OnInteractionPromptEvent);
+    }
+    
+    void OnInteractionPromptEvent(InteractionPromptEvent eventData)
+    {
+        switch (eventData.Action)
+        {
+            case InteractionAction.Show:
+                ShowPromptNew(eventData.PromptText, eventData.Type);
+                break;
+            case InteractionAction.Hide:
+                HidePromptNew();
+                break;
+            case InteractionAction.Update:
+                UpdatePromptNew(eventData.PromptText, eventData.Type);
+                break;
+        }
+    }
+    
+    public void ShowPromptNew(string text, InteractionType type = InteractionType.General)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            HidePromptNew();
+            return;
+        }
+        
+        currentPromptText = text;
+        
+        if (promptText != null)
+        {
+            promptText.text = text;
+            promptText.color = GetColorForInteractionType(type);
+        }
+        
+        if (!isVisible)
+        {
+            isVisible = true;
+            promptPanel.SetActive(true);
+            
+            if (useScreenPosition)
+            {
+                SetScreenPosition();
+            }
+            else
+            {
+                UpdateWorldPosition();
+            }
+            
+            if (currentAnimation != null)
+            {
+                StopCoroutine(currentAnimation);
+            }
+            currentAnimation = StartCoroutine(AnimateShow());
+        }
+    }
+    
+    public void UpdatePromptNew(string text, InteractionType type = InteractionType.General)
+    {
+        if (isVisible && promptText != null)
+        {
+            currentPromptText = text;
+            promptText.text = text;
+            promptText.color = GetColorForInteractionType(type);
+        }
+        else
+        {
+            ShowPromptNew(text, type);
+        }
+    }
+    
+    public void HidePromptNew()
+    {
+        if (!isVisible) return;
+        
+        if (currentAnimation != null)
+        {
+            StopCoroutine(currentAnimation);
+        }
+        
+        currentAnimation = StartCoroutine(AnimateHide());
+    }
+    
+    void HidePromptImmediate()
+    {
+        isVisible = false;
+        if (promptPanel != null)
+        {
+            promptPanel.SetActive(false);
+        }
+        if (promptCanvasGroup != null)
+        {
+            promptCanvasGroup.alpha = 0f;
+        }
+        transform.localScale = hideScale;
+        currentPromptText = "";
+    }
+    
+    Color GetColorForInteractionType(InteractionType type)
+    {
+        switch (type)
+        {
+            case InteractionType.Door:
+                return new Color(0.8f, 0.8f, 1f);
+            case InteractionType.NPC:
+                return new Color(1f, 1f, 0.8f);
+            case InteractionType.Item:
+                return new Color(0.8f, 1f, 0.8f);
+            case InteractionType.Combat:
+                return new Color(1f, 0.8f, 0.8f);
+            case InteractionType.Dialogue:
+                return highlightTextColor;
+            default:
+                return defaultTextColor;
+        }
+    }
+    
+    void UpdateWorldPosition()
+    {
+        if (playerTransform == null || playerCamera == null) return;
+        
+        Vector3 worldPosition = playerTransform.position + worldOffset;
+        Vector3 screenPosition = playerCamera.WorldToScreenPoint(worldPosition);
+        
+        if (screenPosition.z > 0)
+        {
+            RectTransform rectTransform = transform as RectTransform;
+            if (rectTransform != null)
+            {
+                rectTransform.position = screenPosition;
+            }
+        }
+    }
+    
+    void SetScreenPosition()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null) return;
+        
+        RectTransform canvasRect = canvas.transform as RectTransform;
+        RectTransform promptRect = transform as RectTransform;
+        
+        if (canvasRect != null && promptRect != null)
+        {
+            Vector2 canvasSize = canvasRect.rect.size;
+            Vector2 targetPosition = new Vector2(
+                canvasSize.x * screenPosition.x,
+                canvasSize.y * screenPosition.y
+            );
+            
+            promptRect.anchoredPosition = targetPosition - canvasSize * 0.5f;
+        }
+    }
+    
+    IEnumerator AnimateShow()
+    {
+        if (promptCanvasGroup == null) yield break;
+        
+        promptCanvasGroup.alpha = 0f;
+        transform.localScale = hideScale;
+        
+        float elapsed = 0f;
+        while (elapsed < fadeInDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = elapsed / fadeInDuration;
+            
+            t = t * t * (3f - 2f * t);
+            
+            promptCanvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+            transform.localScale = Vector3.Lerp(hideScale, showScale, t);
+            
+            yield return null;
+        }
+        
+        promptCanvasGroup.alpha = 1f;
+        transform.localScale = showScale;
+        currentAnimation = null;
+    }
+    
+    IEnumerator AnimateHide()
+    {
+        if (promptCanvasGroup == null) yield break;
+        
+        float startAlpha = promptCanvasGroup.alpha;
+        Vector3 startScale = transform.localScale;
+        
+        float elapsed = 0f;
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = elapsed / fadeOutDuration;
+            
+            promptCanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t);
+            transform.localScale = Vector3.Lerp(startScale, hideScale, t);
+            
+            yield return null;
+        }
+        
+        HidePromptImmediate();
+        currentAnimation = null;
+    }
+    
+    void OnDestroy()
+    {
+        EventBus.Unsubscribe<InteractionPromptEvent>(OnInteractionPromptEvent);
     }
     
     private void CreatePromptBackground(GameObject parent)

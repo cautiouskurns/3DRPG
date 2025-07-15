@@ -78,3 +78,20 @@ public class SystemsInitializedEvent : GameEvent
         SystemName = systemName;
     }
 }
+
+/// <summary>
+/// Event fired when game object is interacted with
+/// </summary>
+public class GameObjectInteractedEvent : GameEvent
+{
+    public GameObject InteractedObject { get; }
+    public string ObjectName { get; }
+    public Vector3 Position { get; }
+    
+    public GameObjectInteractedEvent(GameObject obj, string objectName)
+    {
+        InteractedObject = obj;
+        ObjectName = objectName;
+        Position = obj != null ? obj.transform.position : Vector3.zero;
+    }
+}
