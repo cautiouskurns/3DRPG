@@ -140,7 +140,7 @@ public class VillageEnvironmentValidator : MonoBehaviour
         Debug.Log("=== LIGHTING VALIDATION ===");
         
         // Current scene lighting
-        Light[] lights = FindObjectsOfType<Light>();
+        Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
         Debug.Log($"Active lights in scene: {lights.Length}");
         
         // Categorize lights
@@ -225,7 +225,7 @@ public class VillageEnvironmentValidator : MonoBehaviour
             Debug.LogWarning("⚠️ Performance below target");
             
             // Suggest optimizations
-            Light[] lights = FindObjectsOfType<Light>();
+            Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
             int realtimeLights = 0;
             foreach (Light light in lights)
             {
@@ -369,7 +369,7 @@ public class VillageEnvironmentValidator : MonoBehaviour
         Debug.Log(atmosphere.GetAtmosphereInfo());
         
         // Check particle systems
-        ParticleSystem[] particles = FindObjectsOfType<ParticleSystem>();
+        ParticleSystem[] particles = FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None);
         Debug.Log($"Total particle systems in scene: {particles.Length}");
         
         int activeParticles = 0;

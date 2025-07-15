@@ -20,7 +20,7 @@ public class MilestoneValidator : MonoBehaviour
     private PlayerController playerController;
     private CameraController cameraController;
     
-    private bool validationComplete = false;
+    // private bool validationComplete;
     private int passedTests = 0;
     private int totalTests = 0;
     
@@ -132,7 +132,7 @@ public class MilestoneValidator : MonoBehaviour
         // Final Results
         ShowValidationResults();
         
-        validationComplete = true;
+        // validationComplete = true;
     }
     
     void ValidateTest(string testName, bool result)

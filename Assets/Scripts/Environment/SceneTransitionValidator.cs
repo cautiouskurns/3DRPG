@@ -97,7 +97,7 @@ public class SceneTransitionValidator : MonoBehaviour
     bool ValidateDoorTriggers()
     {
         // Count door triggers
-        DoorTrigger[] doors = FindObjectsOfType<DoorTrigger>();
+        DoorTrigger[] doors = FindObjectsByType<DoorTrigger>(FindObjectsSortMode.None);
         
         if (enableDebugLogs)
         {
@@ -165,7 +165,7 @@ public class SceneTransitionValidator : MonoBehaviour
     
     bool ValidateInteractionPrompt()
     {
-        InteractionPrompt[] prompts = FindObjectsOfType<InteractionPrompt>();
+        InteractionPrompt[] prompts = FindObjectsByType<InteractionPrompt>(FindObjectsSortMode.None);
         
         if (enableDebugLogs)
         {
@@ -328,7 +328,7 @@ public class SceneTransitionValidator : MonoBehaviour
     {
         Debug.Log("=== DOOR TRIGGER TESTING ===");
         
-        DoorTrigger[] doors = FindObjectsOfType<DoorTrigger>();
+        DoorTrigger[] doors = FindObjectsByType<DoorTrigger>(FindObjectsSortMode.None);
         
         if (doors.Length == 0)
         {

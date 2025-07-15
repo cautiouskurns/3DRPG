@@ -37,7 +37,7 @@ public class TransitionDebugger : MonoBehaviour
         if (enableContinuousLogging && Time.time - lastLogTime > loggingInterval)
         {
             lastLogTime = Time.time;
-            LogPlayerPosition();
+            //LogPlayerPosition();
         }
     }
     

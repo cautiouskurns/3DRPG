@@ -81,7 +81,7 @@ public class BasicLightingManager : MonoBehaviour
     private void SetupMainDirectionalLight()
     {
         // Find existing directional light
-        Light[] allLights = FindObjectsOfType<Light>();
+        Light[] allLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
         foreach (Light light in allLights)
         {
             if (light.type == LightType.Directional)
@@ -200,7 +200,7 @@ public class BasicLightingManager : MonoBehaviour
         QualitySettings.shadowDistance = 50f; // Reasonable shadow distance for village
         
         // Limit real-time lights
-        Light[] allLights = FindObjectsOfType<Light>();
+        Light[] allLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
         int realtimeLightCount = 0;
         
         foreach (Light light in allLights)
@@ -269,7 +269,7 @@ public class BasicLightingManager : MonoBehaviour
             info += $"Shadows: {mainDirectionalLight.shadows}\n";
         }
         
-        Light[] allLights = FindObjectsOfType<Light>();
+        Light[] allLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
         info += $"Total Lights: {allLights.Length}\n";
         
         return info;
@@ -286,7 +286,7 @@ public class BasicLightingManager : MonoBehaviour
             valid = false;
         }
         
-        Light[] allLights = FindObjectsOfType<Light>();
+        Light[] allLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
         int realtimeLights = 0;
         
         foreach (Light light in allLights)

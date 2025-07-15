@@ -4,7 +4,13 @@ using UnityEngine;
 
 public static class EventBus
 {
-    private static Dictionary<Type, List<Delegate>> eventHandlers = new Dictionary<Type, List<Delegate>>();
+    private static Dictionary<Type, List<Delegate>> eventHandlers;
+    
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Initialize()
+    {
+        eventHandlers = new Dictionary<Type, List<Delegate>>();
+    }
     
     /// <summary>
     /// Subscribe to an event type
