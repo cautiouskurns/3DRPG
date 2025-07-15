@@ -12,9 +12,9 @@ public class VillageValidationTest : MonoBehaviour
     void Start()
     {
         // Find village systems
-        villageLayout = FindObjectOfType<BasicVillageLayout>();
-        groundSetup = FindObjectOfType<BasicGroundSetup>();
-        collisionSetup = FindObjectOfType<BasicCollisionSetup>();
+        villageLayout = FindFirstObjectByType<BasicVillageLayout>();
+        groundSetup = FindFirstObjectByType<BasicGroundSetup>();
+        collisionSetup = FindFirstObjectByType<BasicCollisionSetup>();
         
         Debug.Log("VillageValidationTest: Press V to validate village setup");
         Debug.Log("VillageValidationTest: Press R to rebuild village");
@@ -207,7 +207,7 @@ public class VillageValidationTest : MonoBehaviour
     
     void ValidatePlayer()
     {
-        PlayerController player = FindObjectOfType<PlayerController>();
+        PlayerController player = FindFirstObjectByType<PlayerController>();
         bool playerExists = player != null;
         
         if (enableDebugLogging)

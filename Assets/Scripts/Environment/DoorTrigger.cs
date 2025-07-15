@@ -8,7 +8,7 @@ public class DoorTrigger : MonoBehaviour
     public string doorName;
     
     [Header("Interaction")]
-    public float interactionRange = 2.5f;
+    public float interactionRange = 0.5f;
     public KeyCode interactionKey = KeyCode.E;
     
     [Header("UI Feedback")]

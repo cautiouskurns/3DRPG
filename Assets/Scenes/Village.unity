@@ -329,7 +329,7 @@ MonoBehaviour:
   targetSceneName: Shop_Interior
   spawnPointName: PlayerSpawn
   doorName: Shop
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
@@ -920,6 +920,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201091060}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &233867228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 233867229}
+  - component: {fileID: 233867230}
+  m_Layer: 0
+  m_Name: VillageEnvironmentValidator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &233867229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233867228}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1693499486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &233867230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233867228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a954017b672458e8b7c441ae673f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VillageEnvironmentValidator
+  performanceCheckDuration: 10
+  targetFPS: 30
+  enableContinuousMonitoring: 0
+  interiorScenes:
+  - TownHall_Interior
+  - Shop_Interior
+  - Inn_Interior
+  - Blacksmith_Interior
+  - Chapel_Interior
+  - House_Interior
+  enableDebugLogs: 1
 --- !u!21 &235267211
 Material:
   serializedVersion: 8
@@ -1355,7 +1410,7 @@ MonoBehaviour:
   targetSceneName: House_Interior
   spawnPointName: PlayerSpawn
   doorName: House
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
@@ -2351,6 +2406,64 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!1 &789430463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789430464}
+  - component: {fileID: 789430465}
+  m_Layer: 0
+  m_Name: BasicLightingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &789430464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789430463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1395817532}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &789430465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789430463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02b6ede92f2642298f73fc22bccae0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BasicLightingManager
+  exteriorAmbientColor: {r: 0.7, g: 0.8, b: 1, a: 1}
+  exteriorAmbientIntensity: 0.4
+  exteriorDirectionalColor: {r: 1, g: 0.96, b: 0.9, a: 1}
+  exteriorDirectionalIntensity: 1.2
+  exteriorDirectionalRotation: {x: 30, y: 135, z: 0}
+  interiorAmbientColor: {r: 1, g: 0.95, b: 0.9, a: 1}
+  interiorAmbientIntensity: 0.6
+  interiorDirectionalColor: {r: 1, g: 0.96, b: 0.9, a: 1}
+  interiorDirectionalIntensity: 0.8
+  interiorDirectionalRotation: {x: 45, y: 0, z: 0}
+  maxRealtimeLights: 4
+  enableShadows: 1
+  shadowQuality: 2
+  enableDebugLogs: 1
 --- !u!21 &794630034
 Material:
   serializedVersion: 8
@@ -2751,6 +2864,61 @@ MonoBehaviour:
   screenOffset: {x: 0, y: 100}
   autoCreateUI: 1
   fallbackFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &965053680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965053681}
+  - component: {fileID: 965053682}
+  m_Layer: 0
+  m_Name: BasicAtmosphereManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &965053681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965053680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1614664591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &965053682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965053680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d5f72f4921341f48c125b94fa768ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BasicAtmosphereManager
+  enableAtmosphericEffects: 1
+  chimneySmokePrefab: {fileID: 0}
+  smokeSpawnPoints: []
+  maxActiveParticles: 50
+  smokeEmissionRate: 10
+  smokeLifetime: 3
+  smokeVelocity: {x: 0, y: 2, z: 0.5}
+  optimizeForPerformance: 1
+  effectUpdateInterval: 0.5
+  enableDebugLogs: 1
+  showGizmos: 1
 --- !u!1 &984325575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2966,7 @@ MonoBehaviour:
   targetSceneName: Inn_Interior
   spawnPointName: PlayerSpawn
   doorName: Inn
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
@@ -2934,6 +3102,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1693499486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1051159108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1051159109}
+  - component: {fileID: 1051159110}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1051159109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051159108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1614664591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1051159110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051159108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ab27b6014b549f1a40aa1402c422c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  ambientSource: {fileID: 0}
+  uiSource: {fileID: 0}
+  masterVolume: 1
+  musicVolume: 0.7
+  sfxVolume: 1
+  ambientVolume: 0.6
+  uiVolume: 1
+  muteOnFocusLoss: 1
+  enableSpatialAudio: 1
+  enableDebugLogs: 1
 --- !u!1 &1054363040
 GameObject:
   m_ObjectHideFlags: 0
@@ -3694,7 +3918,7 @@ MonoBehaviour:
   targetSceneName: TownHall_Interior
   spawnPointName: PlayerSpawn
   doorName: Town Hall
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
@@ -4691,10 +4915,42 @@ MonoBehaviour:
   targetSceneName: Chapel_Interior
   spawnPointName: PlayerSpawn
   doorName: Chapel
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
+--- !u!1 &1395817531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1395817532}
+  m_Layer: 0
+  m_Name: VFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1395817532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395817531}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.25583, y: 0, z: 12.19107}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 789430464}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1453443765
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,6 +5218,8 @@ Transform:
   - {fileID: 1799677523}
   - {fileID: 759376156}
   - {fileID: 908883501}
+  - {fileID: 1051159109}
+  - {fileID: 965053681}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650501509
@@ -5047,6 +5305,7 @@ Transform:
   - {fileID: 873441475}
   - {fileID: 507464285}
   - {fileID: 1569414395}
+  - {fileID: 233867229}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1737290218
@@ -5146,7 +5405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b17ae0179fdf4c2ba3cfe56280a6e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
+  moveSpeed: 8
   acceleration: 10
   deceleration: 15
 --- !u!1 &1799677521
@@ -5324,7 +5583,7 @@ MonoBehaviour:
   targetSceneName: Blacksmith_Interior
   spawnPointName: PlayerSpawn
   doorName: Blacksmith
-  interactionRange: 2.5
+  interactionRange: 0.5
   interactionKey: 101
   interactionPrompt: {fileID: 0}
   enableDebugLogs: 1
@@ -6713,3 +6972,4 @@ SceneRoots:
   - {fileID: 1338392630}
   - {fileID: 1650501510}
   - {fileID: 257063576}
+  - {fileID: 1395817532}

@@ -147,6 +147,9 @@ public class SimpleSceneTransition : MonoBehaviour
             Debug.Log($"SimpleSceneTransition: Scene loaded - {scene.name}");
         }
         
+        // Apply appropriate lighting for the new scene
+        ApplySceneLighting(scene.name);
+        
         // Restore player state after scene loads
         if (preservePlayerState && savedPlayerState != null)
         {
@@ -398,6 +401,28 @@ public class SimpleSceneTransition : MonoBehaviour
         
         Debug.LogError("SimpleSceneTransition: No scenes found in build settings!");
         return "Village"; // Final fallback
+    }
+    
+    // Apply appropriate lighting when scene loads
+    private void ApplySceneLighting(string sceneName)
+    {
+        BasicLightingManager lightingManager = BasicLightingManager.Instance;
+        if (lightingManager != null)
+        {
+            lightingManager.ApplySceneLighting(sceneName);
+            
+            if (enableDebugLogs)
+            {
+                Debug.Log($"SimpleSceneTransition: Applied lighting for scene '{sceneName}'");
+            }
+        }
+        else
+        {
+            if (enableDebugLogs)
+            {
+                Debug.Log("SimpleSceneTransition: BasicLightingManager not found, skipping lighting setup");
+            }
+        }
     }
 }
 
