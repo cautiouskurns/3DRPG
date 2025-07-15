@@ -132,7 +132,12 @@ public class InteractionContentPanel : MonoBehaviour
             {
                 StopCoroutine(autoHideCoroutine);
             }
-            autoHideCoroutine = StartCoroutine(AutoHideAfterDelay(content.contentDisplayTime));
+            
+            // Only start coroutine if GameObject is active
+            if (gameObject.activeInHierarchy)
+            {
+                autoHideCoroutine = StartCoroutine(AutoHideAfterDelay(content.contentDisplayTime));
+            }
         }
     }
     
@@ -186,7 +191,20 @@ public class InteractionContentPanel : MonoBehaviour
         if (isVisible) return;
         
         isVisible = true;
-        contentPanel.SetActive(true);
+        
+        // Ensure GameObject is active before starting coroutines
+        if (contentPanel != null)
+        {
+            contentPanel.SetActive(true);
+        }
+        
+        // Make sure the parent canvas is also active
+        Canvas parentCanvas = GetComponentInParent<Canvas>();
+        if (parentCanvas != null && !parentCanvas.gameObject.activeInHierarchy)
+        {
+            parentCanvas.gameObject.SetActive(true);
+            Debug.Log($"InteractionContentPanel: Activated parent canvas {parentCanvas.name}");
+        }
         
         if (currentAnimation != null)
         {

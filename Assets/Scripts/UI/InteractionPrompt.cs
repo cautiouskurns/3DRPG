@@ -241,7 +241,7 @@ public class InteractionPrompt : MonoBehaviour
         else
         {
             // Try to find default font
-            Font defaultFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             if (defaultFont != null)
             {
                 promptText.font = defaultFont;
